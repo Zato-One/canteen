@@ -6,7 +6,9 @@ import canteen.moveTo.MoveToFinish;
 import canteen.person.Person;
 import canteen.person.PersonHolder;
 import canteen.person.PersonState;
+import canteen.result.Result;
 import canteen.result.ResultsHolder;
+
 import java.util.ArrayList;
 
 public class CanteenSimulation {
@@ -48,6 +50,10 @@ public class CanteenSimulation {
 
     public void writeResults() {
         resultHolder.writeAll();
+    }
+    
+    public ArrayList<Result> getResults(){
+    	return resultHolder.getAllResults();
     }
 
     public double howLongTakeToReachEatingStateAtTime(int atTime) {

@@ -19,6 +19,10 @@ public class ResultsHolder {
                 personHolder.getNumberOfPersonsInState(PersonState.finished));
         results.add(result);
     }
+    
+    public ArrayList<Result> getAllResults(){
+    	return results;
+    }
 
     public void writeAll() {
         for (Result result : results) {
