@@ -1,8 +1,5 @@
 package canteen;
 
-import java.util.ArrayList;
-
-import canteen.result.Result;
 
 public class Canteen {
 
@@ -28,6 +25,7 @@ public class Canteen {
             simulation.saveToCSV("results.csv", ",");
 
 
+           
             
             
             //ArrayList<Result> results = simulation.getResults();
