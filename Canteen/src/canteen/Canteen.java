@@ -18,6 +18,7 @@ public class Canteen {
 			parametersManager.setStdForFoodQueue(0.5);
 			parametersManager.setMeanForEating(10.0);
 			parametersManager.setStdForEating(0.5);
+			parametersManager.setSimulationStep(5);
 
 			// create simulation
 			CanteenSimulation simulation = new CanteenSimulation(
