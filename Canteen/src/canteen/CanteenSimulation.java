@@ -42,7 +42,7 @@ public class CanteenSimulation {
             // move from table queue to eating state
             MoveToEating.move(personHolder.getPersonsInState(PersonState.tableQueue), personHolder.getNumberOfPersonsInState(PersonState.eating), currentTime, parametersManager);
             // move from eating state to finish state
-            MoveToFinish.move(personHolder.getPersonsInState(PersonState.eating), parametersManager);
+            MoveToFinish.move(personHolder.getPersonsInState(PersonState.eating), currentTime, parametersManager);
             
         }
 

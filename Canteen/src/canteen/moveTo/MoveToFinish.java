@@ -8,21 +8,16 @@ import java.util.Random;
 
 public class MoveToFinish {
 
-    public static void move(ArrayList<Person> personsEating,ParametersManager parametersManager) {
-        int numberToMove = calculateNumberOfPersonsToMoveToNextState(parametersManager);
-        int i = 0;
+    public static void move(ArrayList<Person> personsEating,int currentTime, ParametersManager parametersManager) {
         for(Person person : personsEating){
-            if(i < numberToMove) {
-                person.setPersonState(PersonState.finished);
-                i++;
-            }
-            else{
-                break;
+            int eatingTime = currentTime - person.getDispatchTime();
+            if(eatingTime >= calculateChanceToMove(parametersManager)) {
+            	person.setPersonState(PersonState.finished);
             }
         }
     }
 
-    public static int calculateNumberOfPersonsToMoveToNextState(ParametersManager parametersManager) {
+    public static int calculateChanceToMove(ParametersManager parametersManager) {
         Random rng = new Random();
         double numberOfPersonsToMove = parametersManager.getMoveToFinishGaussianMean() 
                                        + parametersManager.getMoveToFinishGaussianStd() * rng.nextGaussian();
