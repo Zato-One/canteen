@@ -52,8 +52,14 @@ public class CanteenSimulation {
         resultHolder.writeAll();
     }
     
-    public ArrayList<Result> getResults(){
-    	return resultHolder.getAllResults();
+    public ArrayList<Result> getResults() throws Exception{
+    	ArrayList<Result> results = resultHolder.getAllResults(); 
+    	if(results.size() > 0) {
+    		return results;
+    	}
+    	else {
+    		throw new Exception("Simulation dont have any results. Did you call run() before getResults()?");
+    	}
     }
 
     public double howLongTakeToReachEatingStateAtTime(int atTime) {

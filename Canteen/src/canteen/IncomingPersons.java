@@ -11,11 +11,11 @@ public class IncomingPersons {
 
     ArrayList<Integer> values = new ArrayList<>();
 
-    public IncomingPersons(String filename) {
+    public IncomingPersons(String filename) throws Exception{
         try {
             loadFromFile(filename);
         } catch (Exception e) {
-           
+            throw new Exception("Unable to load incoming persons data from file: "+filename);
         }
     }
     
