@@ -11,14 +11,16 @@ public class Canteen {
 			// define simulation parameters, each method is decribed in JavaDocs
 			ParametersManager parametersManager = new ParametersManager();
 			parametersManager.setSimulationTime(40);
-			parametersManager
-					.setIncomingPersonsDataFileName("real_incoming_persons_data.txt");
+			parametersManager.setIncomingPersonsDataFileName("real_incoming_persons_data.txt");
 			parametersManager.setCanteenCapacity(10);
 			parametersManager.setMeanForFoodQueue(5.0);
 			parametersManager.setStdForFoodQueue(0.5);
-			parametersManager.setMeanForEating(10.0);
-			parametersManager.setStdForEating(0.5);
 			parametersManager.setSimulationStep(5);
+			
+			// no initialization of these values will lead to use default values - which are based on real data  
+			//parametersManager.setMeanForEating(10.0);
+			//parametersManager.setStdForEating(0.5);
+			
 
 			// create simulation
 			CanteenSimulation simulation = new CanteenSimulation(

@@ -5,8 +5,8 @@ public class ParametersManager {
 	private String incomingPersonsfilename = "incoming_persons_data.txt";
 	private int canteenCapacity = 20;
 	private int simulationTime = 40;
-	private double moveToFinishGaussianStd = 0.5;
-	private double moveToFinishGaussianMean = 2.0;
+	private double moveToFinishGaussianStd = 3.2042;
+	private double moveToFinishGaussianMean = 10.667;
 	private double moveToTableQueueGaussianStd = 0.5;
 	private double moveToTableQueueGaussianMean = 5.0;
 	private int simulationStep = 5;
