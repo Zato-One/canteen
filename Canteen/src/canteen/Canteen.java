@@ -12,7 +12,7 @@ public class Canteen {
 			ParametersManager parametersManager = new ParametersManager();
 			parametersManager.setSimulationTime(40);
 			parametersManager
-					.setIncomingPersonsDataFileName("incoming_persons_data.txt");
+					.setIncomingPersonsDataFileName("real_incoming_persons_data.txt");
 			parametersManager.setCanteenCapacity(10);
 			parametersManager.setMeanForFoodQueue(5.0);
 			parametersManager.setStdForFoodQueue(0.5);
