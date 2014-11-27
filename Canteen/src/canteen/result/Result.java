@@ -1,5 +1,9 @@
 package canteen.result;
 
+import org.omg.Dynamic.Parameter;
+
+import canteen.ParametersManager;
+
 public class Result {
     private int time = 0;
     private int foodQueue = 0;
@@ -13,6 +17,13 @@ public class Result {
         this.tableQueue = tableQueue;
         this.eating = eating;
         this.finished = finished;
+    }
+    
+    public String getFormattedTime(){
+    	int computedTime = 660 + time;
+    	int hour = computedTime / 60;
+    	int minutes = computedTime - (hour*60);
+    	return String.format("%02d", hour)+":"+String.format("%02d", minutes);
     }
     
     public int getTime(){

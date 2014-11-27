@@ -3,8 +3,8 @@ package canteen;
 public class ParametersManager {
 
 	private String incomingPersonsfilename = "incoming_persons_data.txt";
-	private int canteenCapacity = 20;
-	private int simulationTime = 40;
+	private int canteenCapacity = 320;
+	private int simulationTime = 73;
 	private double moveToFinishGaussianStd = 3.2042;
 	private double moveToFinishGaussianMean = 10.667;
 	private double moveToTableQueueGaussianStd = 0.5;

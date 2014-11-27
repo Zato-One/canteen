@@ -31,7 +31,7 @@ public class CanteenSimulation {
     }
 
     public void run() {
-        for (currentTime = 0; currentTime < parametersManager.getSimulationTime(); currentTime += parametersManager.getSimulationStep()) {
+        for (currentTime = 0; currentTime < (parametersManager.getSimulationTime()*parametersManager.getSimulationStep()); currentTime += parametersManager.getSimulationStep()) {
             // save result
             resultHolder.addResult(currentTime, personHolder);
 
