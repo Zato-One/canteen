@@ -11,15 +11,14 @@ public class Canteen {
 			// define simulation parameters, each method is decribed in JavaDocs
 			ParametersManager parametersManager = new ParametersManager();
 			parametersManager.setIncomingPersonsDataFileName("real_incoming_persons_data.txt");
-			parametersManager.setMeanForFoodQueue(5.0);
-			parametersManager.setStdForFoodQueue(0.5);
-			parametersManager.setSimulationStep(5);
-			
 			// no initialization these values will lead to use default values - which are based on real data  
 			//parametersManager.setMeanForEating(10.0);
 			//parametersManager.setStdForEating(0.5);
+			//parametersManager.setMeanForFoodQueue(5.0);
+			//parametersManager.setStdForFoodQueue(0.5);
 			//parametersManager.setCanteenCapacity(100);
 			//parametersManager.setSimulationTime(40);
+			//parametersManager.setSimulationStep(5);
 			
 
 			// create simulation
@@ -28,11 +27,10 @@ public class Canteen {
 			// run simulation
 			simulation.run();
 			// write results to console
-			simulation.writeResults();
+			simulation.writeDebugResults();
 			// save results to CSV
 			simulation.saveToCSV("results.csv", ",");
 
-			
 			// how to get simulation results
 			ArrayList<Result> results = simulation.getResults();
 			System.out.println("Results size: "+results.size());

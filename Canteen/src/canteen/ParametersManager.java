@@ -7,8 +7,8 @@ public class ParametersManager {
 	private int simulationTime = 73;
 	private double moveToFinishGaussianStd = 3.2042;
 	private double moveToFinishGaussianMean = 10.667;
-	private double moveToTableQueueGaussianStd = 0.5;
-	private double moveToTableQueueGaussianMean = 5.0;
+	private double moveToTableQueueGaussianStd = 2;
+	private double moveToTableQueueGaussianMean = 8;
 	private int simulationStep = 5;
 
 	/**

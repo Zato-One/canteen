@@ -48,7 +48,7 @@ public class CanteenSimulation {
 
     }
 
-    public void writeResults() {
+    public void writeDebugResults() {
         resultHolder.writeAll();
     }
     

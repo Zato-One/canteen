@@ -26,7 +26,7 @@ public class ResultsHolder {
 
     public void writeAll() {
         for (Result result : results) {
-            System.out.println("Time: " + result.getTime());
+            System.out.println("Time: " + result.getFormattedTime());
             System.out.println("FoodQueue: " + result.getNumberOfPeopleInFoodQueue());
             System.out.println("TableQueue: " + result.getNumberOfPeopleInTableQueue());
             System.out.println("Eating: " + result.getNumberOfPeopleEating());
@@ -39,6 +39,7 @@ public class ResultsHolder {
         PrintWriter writer = new PrintWriter(filename, "UTF-8");
         for (Result result : results) {
             writer.println( result.getTime()+divider+
+            				result.getFormattedTime()+divider+
                             result.getNumberOfPeopleInFoodQueue()+divider+
                             result.getNumberOfPeopleInTableQueue()+divider+
                             result.getNumberOfPeopleEating()+divider+
