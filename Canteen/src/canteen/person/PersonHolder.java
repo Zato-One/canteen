@@ -2,11 +2,17 @@ package canteen.person;
 
 import java.util.ArrayList;
 
+import canteen.ParametersManager;
+
 
 public class PersonHolder {
     ArrayList<Person> persons = new ArrayList<>();
     
     public void addPerson(int currentTime,int numberOfPersons){
+    	if(ParametersManager.isDebug()){
+    		System.out.println("-----");
+    		System.out.println("Added "+numberOfPersons+" persons to foodQueue at "+currentTime+".");
+    	}
         for(int i=0;i<numberOfPersons;i++){
             persons.add(new Person(currentTime));
         }

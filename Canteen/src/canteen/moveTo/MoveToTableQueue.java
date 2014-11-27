@@ -20,6 +20,9 @@ public class MoveToTableQueue {
                 break;
             }
         }
+        if(ParametersManager.isDebug()){
+        	System.out.println("From FOODQUEUE to TABLEQUEUE: "+i);
+        }
     }
 
     public static int calculateNumberOfPersonsToMoveToNextState(ParametersManager parametersManager) {

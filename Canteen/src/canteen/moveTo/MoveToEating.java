@@ -20,6 +20,9 @@ public class MoveToEating {
                 break;
             }
         }
+        if(ParametersManager.isDebug()){
+        	System.out.println("From TABLEQUEUE to EATING: "+i);
+        }
     }
 
 }

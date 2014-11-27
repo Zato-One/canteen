@@ -25,15 +25,20 @@ public class CanteenSimulation {
             this.resultHolder = new ResultsHolder();
             this.incomingPersons = new IncomingPersons(parametersManager.getIncomingPersonsfilename());
             this.parametersManager = parametersManager;
+            if(ParametersManager.isDebug()){
+            	parametersManager.writeValues();
+            }
         } else {
             throw new Exception("ParametersManager is not valid");
         }
     }
 
     public void run() {
+    	int i = 0;
         for (currentTime = 0; currentTime < (parametersManager.getSimulationTime()*parametersManager.getSimulationStep()); currentTime += parametersManager.getSimulationStep()) {
             // save result
             resultHolder.addResult(currentTime, personHolder);
+            resultHolder.writeResult(i);
 
             // add people
             personHolder.addPerson(currentTime, incomingPersons.getNumberOfPerson(currentTime));
@@ -44,6 +49,7 @@ public class CanteenSimulation {
             // move from eating state to finish state
             MoveToFinish.move(personHolder.getPersonsInState(PersonState.eating), currentTime, parametersManager);
             
+            i++;
         }
 
     }

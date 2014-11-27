@@ -14,6 +14,9 @@ public class IncomingPersons {
     public IncomingPersons(String filename) throws Exception{
         try {
             loadFromFile(filename);
+            if(ParametersManager.isDebug()){
+            	System.out.println("Loaded "+values.size()+" records from "+filename);
+            }
         } catch (Exception e) {
             throw new Exception("Unable to load incoming persons data from file: "+filename);
         }

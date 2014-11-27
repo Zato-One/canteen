@@ -10,6 +10,7 @@ public class ParametersManager {
 	private double moveToTableQueueGaussianStd = 2;
 	private double moveToTableQueueGaussianMean = 8;
 	private int simulationStep = 5;
+	static private Boolean enableDebug = false;
 
 	/**
 	 * Set filename of data set with incoming persons measurement. File have to
@@ -18,7 +19,6 @@ public class ParametersManager {
 	 * @param filename
 	 *            Name of the file
 	 */
-
 	public void setIncomingPersonsDataFileName(String filename) {
 		incomingPersonsfilename = filename;
 	}
@@ -94,6 +94,14 @@ public class ParametersManager {
 	public void setSimulationStep(int step) {
 		simulationStep = step;
 	}
+	
+	public static void enableDebug(){
+		enableDebug = true;
+	}
+	
+	public static Boolean isDebug(){
+		return enableDebug;
+	}
 
 	public String getIncomingPersonsfilename() {
 		return incomingPersonsfilename;
@@ -125,6 +133,17 @@ public class ParametersManager {
 
 	public double getMoveToTableQueueGaussianStd() {
 		return moveToTableQueueGaussianStd;
+	}
+	
+	public void writeValues(){
+		System.out.println("File: "+incomingPersonsfilename);
+		System.out.println("Canteen capacity: "+canteenCapacity);
+		System.out.println("Simulation time: "+simulationTime);
+		System.out.println("Step size: "+simulationStep);
+		System.out.println("MoveToFinishGaussianStd: "+moveToFinishGaussianStd);
+		System.out.println("MoveToFinishGaussianMean: "+moveToFinishGaussianMean);
+		System.out.println("MoveToTableQueueGaussianStd: "+moveToTableQueueGaussianStd);
+		System.out.println("MoveToTableQueueGaussianMean: "+moveToTableQueueGaussianMean);
 	}
 
 }
