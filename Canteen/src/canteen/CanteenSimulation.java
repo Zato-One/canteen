@@ -40,7 +40,8 @@ public class CanteenSimulation {
 		}
 	}
 
-	public void run() {
+	public void run() throws Exception {
+		try {
 		int i = 0;
 		for (currentTime = 0; currentTime < (parametersManager
 				.getSimulationTime() * parametersManager.getSimulationStep()); currentTime += parametersManager
@@ -79,6 +80,11 @@ public class CanteenSimulation {
 			System.out.println("Avegare waiting time: ");
 			resultHolder.writeAllWaitingTimes();
 			
+		}
+		
+		}
+		catch (Exception e){
+			throw new Exception("Something goes wrong during the simulation.");
 		}
 		
 		
@@ -121,8 +127,15 @@ public class CanteenSimulation {
 		resultHolder.setWaitingTimes(waitingTimes);
 	}
 
-	public ArrayList<Double> getWaitingTimes() {
-		return resultHolder.getAllWaitingTimes();
+	public ArrayList<Double> getWaitingTimes() throws Exception {
+		ArrayList<Double> results = resultHolder.getAllWaitingTimes();
+		if (results.size() > 0) {
+			return results;
+		} else {
+			throw new Exception(
+					"Simulation dont have any results. Did you call run() before getWaitingTimes()?");
+		}
+		
 	}
 
 
