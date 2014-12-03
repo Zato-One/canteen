@@ -9,7 +9,7 @@ import java.util.Random;
 public class MoveToEating {
 
     public static void move(ArrayList<Person> personsInTableQueue, int numberOfPersonsEating,int currentTime,ParametersManager parametersManager) {
-        int diff = parametersManager.getCanteenCapacity() - numberOfPersonsEating;
+        int diff = Math.abs(parametersManager.getCanteenCapacity() - numberOfPersonsEating);
         int i = 0;
         for (Person person : personsInTableQueue) {
             if (i < diff) {

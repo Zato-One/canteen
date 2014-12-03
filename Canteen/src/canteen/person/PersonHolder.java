@@ -10,8 +10,7 @@ public class PersonHolder {
     
     public void addPerson(int currentTime,int numberOfPersons){
     	if(ParametersManager.isDebug()){
-    		System.out.println("-----");
-    		System.out.println("Added "+numberOfPersons+" persons to foodQueue at "+currentTime+".");
+    		System.out.println("Added "+numberOfPersons+" to FOODQUEUE at "+currentTime+".");
     	}
         for(int i=0;i<numberOfPersons;i++){
             persons.add(new Person(currentTime));

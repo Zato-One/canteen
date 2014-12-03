@@ -1,5 +1,6 @@
 package canteen.result;
 
+import canteen.IncomingPersons;
 import canteen.person.PersonHolder;
 import canteen.person.PersonState;
 import canteen.result.Result;
@@ -25,11 +26,21 @@ public class ResultsHolder {
 	public ArrayList<Result> getAllResults() {
 		return results;
 	}
+	
+	public int getSumOfAllPersons(){
+		int sum = 0;
+		if(results.size() > 0) {
+			Result result = results.get(results.size()-1);
+		    sum = result.getNumberOfPeopleEating() + result.getNumberOfPeopleFinished() + result.getNumberOfPeopleInFoodQueue() + result.getNumberOfPeopleInTableQueue();
+		}
+		return sum;
+	}
 
 	public void writeResult(int pos) {
 		Result result = results.get(pos);
 		if (result != null) {
-			System.out.println("Time: " + result.getFormattedTime());
+			System.out.println("Time: " + result.getTime());
+			System.out.println("Real time: " + result.getFormattedTime());
 			System.out.println("FoodQueue: "
 					+ result.getNumberOfPeopleInFoodQueue());
 			System.out.println("TableQueue: "
@@ -47,15 +58,19 @@ public class ResultsHolder {
 		}
 	}
 
-	public void saveToCSV(String filename, String divider) throws Exception {
+	public void saveToCSV(String filename, String divider,IncomingPersons incomingPersons) throws Exception {
 		PrintWriter writer = new PrintWriter(filename, "UTF-8");
+		int i = 0;
 		for (Result result : results) {
-			writer.println(result.getTime() + divider
+			writer.println(
+					result.getTime() + divider
 					+ result.getFormattedTime() + divider
+					+ incomingPersons.getNumberOfPersons(i) + divider
 					+ result.getNumberOfPeopleInFoodQueue() + divider
 					+ result.getNumberOfPeopleInTableQueue() + divider
 					+ result.getNumberOfPeopleEating() + divider
 					+ result.getNumberOfPeopleFinished());
+			i++;
 		}
 		writer.close();
 	}

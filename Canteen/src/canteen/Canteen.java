@@ -30,10 +30,14 @@ public class Canteen {
 			
 			// save results to CSV
 			simulation.saveToCSV("results.csv", ",");
+			
+			// plot graph to file
+			// simulation.plotGraph();
 
+			//simulation.writeAllWaitingTimes();
+			
 			// how to get simulation results
 			ArrayList<Result> results = simulation.getResults();
-			System.out.println("Results size: "+results.size());
 			for (Result result : results) {
 				// do what you want to do
 			}

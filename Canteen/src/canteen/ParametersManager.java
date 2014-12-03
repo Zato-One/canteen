@@ -7,8 +7,8 @@ public class ParametersManager {
 	private int simulationTime = 73;
 	private double moveToFinishGaussianStd = 3.2042;
 	private double moveToFinishGaussianMean = 10.667;
-	private double moveToTableQueueGaussianStd = 2;
-	private double moveToTableQueueGaussianMean = 8;
+	private double moveToTableQueueGaussianStd = 10;
+	private double moveToTableQueueGaussianMean = 60;
 	private int simulationStep = 5;
 	static private Boolean enableDebug = false;
 
@@ -95,9 +95,14 @@ public class ParametersManager {
 		simulationStep = step;
 	}
 	
+	/**
+	 * Enable debug console output
+	 *  
+	 */
 	public static void enableDebug(){
 		enableDebug = true;
 	}
+	
 	
 	public static Boolean isDebug(){
 		return enableDebug;
@@ -144,6 +149,7 @@ public class ParametersManager {
 		System.out.println("MoveToFinishGaussianMean: "+moveToFinishGaussianMean);
 		System.out.println("MoveToTableQueueGaussianStd: "+moveToTableQueueGaussianStd);
 		System.out.println("MoveToTableQueueGaussianMean: "+moveToTableQueueGaussianMean);
+		System.out.println("--------");
 	}
 
 }

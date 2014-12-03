@@ -20,7 +20,7 @@ public class Person {
     public void setDispatchTime(int dispatchTime){
         timeOfDispatch = dispatchTime;
     }
-    
+       
     public int getArrivalTime(){
         return  timeOfArrival;
     }
