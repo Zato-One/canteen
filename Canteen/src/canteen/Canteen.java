@@ -2,7 +2,7 @@ package canteen;
 
 import java.util.ArrayList;
 
-import others.ParametersManager;
+import canteen.others.ParametersManager;
 import canteen.result.Result;
 
 public class Canteen {

@@ -1,4 +1,4 @@
-package others;
+package canteen.others;
 
 public class ParametersManager {
 

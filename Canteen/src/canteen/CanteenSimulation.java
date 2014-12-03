@@ -3,6 +3,9 @@ package canteen;
 import canteen.moveTo.MoveToTableQueue;
 import canteen.moveTo.MoveToEating;
 import canteen.moveTo.MoveToFinish;
+import canteen.others.CalculateAvegare;
+import canteen.others.IncomingPersons;
+import canteen.others.ParametersManager;
 import canteen.person.Person;
 import canteen.person.PersonHolder;
 import canteen.person.PersonState;
@@ -11,10 +14,6 @@ import canteen.result.ResultsHolder;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
-import others.CalculateAvegare;
-import others.IncomingPersons;
-import others.ParametersManager;
 
 public class CanteenSimulation {
 

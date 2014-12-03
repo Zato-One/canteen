@@ -1,5 +1,6 @@
 package canteen.result;
 
+import canteen.others.IncomingPersons;
 import canteen.person.PersonHolder;
 import canteen.person.PersonState;
 import canteen.result.Result;
@@ -8,8 +9,6 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.lang.reflect.WildcardType;
 import java.util.ArrayList;
-
-import others.IncomingPersons;
 
 public class ResultsHolder {
 

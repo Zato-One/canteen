@@ -10,8 +10,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import others.ParametersManager;
 import canteen.CanteenSimulation;
+import canteen.others.ParametersManager;
 
 @SuppressWarnings("serial")
 public class MainWindow extends JFrame implements ActionListener {
@@ -32,7 +32,7 @@ public class MainWindow extends JFrame implements ActionListener {
     public MainWindow() {
     	initComponents();
     	initConfigurationPanel();
-		this.setTitle("Nastavení");
+		this.setTitle("Nastavenï¿½");
 		this.pack();
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
@@ -66,19 +66,19 @@ public class MainWindow extends JFrame implements ActionListener {
     
     private void initConfigurationPanel() {
     	sliderPanelEatMean = new SliderPanel(
-    			"Prùmìrná doba jezení (min):", 5, 25, 180, false);
+    			"Prï¿½mï¿½rnï¿½ doba jezenï¿½ (min):", 5, 25, 180, false);
     	sliderPanelEatStD = new SliderPanel(
-    			"Smìrodatná odchylka jezení:", 0.1f, 5f, 10f, true);
+    			"Smï¿½rodatnï¿½ odchylka jezenï¿½:", 0.1f, 5f, 10f, true);
     	sliderPanelFoodWaitMean = new SliderPanel(
-    			"Prùmìrná doba vydání jídla (min):", 0, 5, 60, true);
+    			"Prï¿½mï¿½rnï¿½ doba vydï¿½nï¿½ jï¿½dla (min):", 0, 5, 60, true);
     	sliderPanelFoodWaitStD = new SliderPanel(
-    			"Smìrodatná odchylka vydání jídla:", 0.1f, 1f, 10f, true);
+    			"Smï¿½rodatnï¿½ odchylka vydï¿½nï¿½ jï¿½dla:", 0.1f, 1f, 10f, true);
     	sliderPanelCapacity = new SliderPanel(
-    			"Kapacita jídelny:", 4, 300, 1000, false);
+    			"Kapacita jï¿½delny:", 4, 300, 1000, false);
     	sliderPanelStepCount = new SliderPanel(
-    			"Poèet krokù:", 10, 73, 1000, false);
+    			"Poï¿½et krokï¿½:", 10, 73, 1000, false);
     	sliderPanelInterval = new SliderPanel(
-    			"Doba mezi intervaly mìøení (min):", 1, 5, 10, false);
+    			"Doba mezi intervaly mï¿½ï¿½enï¿½ (min):", 1, 5, 10, false);
     	
     	JButton runButton = new JButton("Spustit");
     	runButton.setActionCommand("confirm");

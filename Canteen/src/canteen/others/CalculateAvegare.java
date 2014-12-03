@@ -1,4 +1,4 @@
-package others;
+package canteen.others;
 
 import java.util.ArrayList;
 import java.util.Collections;

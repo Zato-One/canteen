@@ -2,7 +2,7 @@ package canteen.person;
 
 import java.util.ArrayList;
 
-import others.ParametersManager;
+import canteen.others.ParametersManager;
 
 
 public class PersonHolder {
