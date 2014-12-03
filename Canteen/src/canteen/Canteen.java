@@ -17,7 +17,7 @@ public class Canteen {
 			//parametersManager.setStdForEating(0.5);
 			//parametersManager.setMeanForFoodQueue(5.0);
 			//parametersManager.setStdForFoodQueue(0.5);
-			//parametersManager.setCanteenCapacity(100);
+			//parametersManager.setCanteenCapacity(300);
 			//parametersManager.setSimulationTime(40);
 			//parametersManager.setSimulationStep(5);
 			
@@ -32,7 +32,7 @@ public class Canteen {
 			simulation.saveToCSV("results.csv", ",");
 			
 			// plot graph to file
-			simulation.plotGraph();
+			// simulation.plotGraph();
 
 			//simulation.writeAllWaitingTimes();
 			
