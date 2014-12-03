@@ -1,4 +1,4 @@
-package canteen;
+package others;
 
 import java.io.File;
 import java.io.FileNotFoundException;

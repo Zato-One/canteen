@@ -2,6 +2,7 @@ package canteen;
 
 import java.util.ArrayList;
 
+import others.ParametersManager;
 import canteen.result.Result;
 
 public class Canteen {
@@ -31,16 +32,16 @@ public class Canteen {
 			// save results to CSV
 			simulation.saveToCSV("results.csv", ",");
 			
-			// plot graph to file
+			// plot graph to file (only unix like OS with gnuplot)
 			// simulation.plotGraph();
-
-			//simulation.writeAllWaitingTimes();
+			
 			
 			// how to get simulation results
 			ArrayList<Result> results = simulation.getResults();
-			for (Result result : results) {
-				// do what you want to do
-			}
+			
+			// how to get average waiting times
+			ArrayList<Double> waitingTimes = simulation.getWaitingTimes();
+			
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

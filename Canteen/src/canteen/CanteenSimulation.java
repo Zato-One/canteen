@@ -12,6 +12,10 @@ import canteen.result.ResultsHolder;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import others.CalculateAvegare;
+import others.IncomingPersons;
+import others.ParametersManager;
+
 public class CanteenSimulation {
 
 	int currentTime = 0;
@@ -67,18 +71,21 @@ public class CanteenSimulation {
 			i++;
 		}
 		
+		calculateWaitingTime();
+		
 		if(ParametersManager.isDebug()){
 			System.out.println("Total persons incoming: "+incomingPersons.getSumOfAllIncomingPersons());
 			System.out.println("Total persons in last step: "+resultHolder.getSumOfAllPersons());
+			System.out.println("Avegare waiting time: ");
+			resultHolder.writeAllWaitingTimes();
 			
 		}
+		
+		
 
 	}
 
-	public void writeDebugResults() {
-		resultHolder.writeAll();
-	}
-
+	
 	public ArrayList<Result> getResults() throws Exception {
 		ArrayList<Result> results = resultHolder.getAllResults();
 		if (results.size() > 0) {
@@ -89,52 +96,35 @@ public class CanteenSimulation {
 		}
 	}
 
-	public double howLongTakeToReachEatingStateAtTime(int atTime) {
+
+	private double howLongTakeToReachEatingStateAtTime(int atTime) {
         ArrayList<Person> personsWithTime = personHolder.getPersonsWithArrivalTime(atTime);
-        int i = 0;
-        int sum = 0;
+        ArrayList<Integer> times = new ArrayList<>();
+        
         for(Person person : personsWithTime){
         	if (person.getDispatchTime() != 0) {
-        		int diff = Math.abs(person.getDispatchTime() - person.getArrivalTime());
-        		System.out.println("----");
-        		System.out.println(atTime+": Diff "+diff);
-        		System.out.println(atTime+": Arrival "+person.getArrivalTime());
-        		System.out.println(atTime+": Dispatch "+person.getDispatchTime());
-                sum = sum + diff;
-                i++;
+        		Integer diff = person.getDispatchTime() - person.getArrivalTime();
+        		times.add(diff);
         	}
-        	else {
-        		// simulation needs more time
-        		i = 1;
-        		sum = -1;
-        		break;
-        	}
-        	
         }
         
-        // no person at this time
-        double mean = -2;
-        if (i != 0) {
-            mean = (double) sum / (double) i;
-        }
-        return mean;
+        return CalculateAvegare.calculate(times);
         
     }
-
-	public ArrayList<Double> getAllWaitingTimes() {
+	
+	
+	private void calculateWaitingTime(){
 		ArrayList<Double> waitingTimes = new ArrayList<>();
 		for (int i = 0; i < (parametersManager.getSimulationTime() * parametersManager.getSimulationStep()); i = i + parametersManager.getSimulationStep()) {
 			waitingTimes.add(howLongTakeToReachEatingStateAtTime(i));
 		}
-
-		return waitingTimes;
+		resultHolder.setWaitingTimes(waitingTimes);
 	}
 
-	public void writeAllWaitingTimes() {
-		for (Double time : getAllWaitingTimes()) {
-			System.out.println(time);
-		}
+	public ArrayList<Double> getWaitingTimes() {
+		return resultHolder.getAllWaitingTimes();
 	}
+
 
 	public void saveToCSV(String filename, String divider) throws Exception {
 		try {

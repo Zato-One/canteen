@@ -1,6 +1,5 @@
 package canteen.result;
 
-import canteen.IncomingPersons;
 import canteen.person.PersonHolder;
 import canteen.person.PersonState;
 import canteen.result.Result;
@@ -10,9 +9,12 @@ import java.io.PrintWriter;
 import java.lang.reflect.WildcardType;
 import java.util.ArrayList;
 
+import others.IncomingPersons;
+
 public class ResultsHolder {
 
 	ArrayList<Result> results = new ArrayList<>();
+	ArrayList<Double> waitingTimes = new ArrayList<>();
 
 	public void addResult(int time, PersonHolder personHolder) {
 		Result result = new Result(time,
@@ -26,6 +28,21 @@ public class ResultsHolder {
 	public ArrayList<Result> getAllResults() {
 		return results;
 	}
+	
+	public ArrayList<Double> getAllWaitingTimes(){
+		return waitingTimes;
+	}
+	
+	public void setWaitingTimes(ArrayList<Double> newWatitngTimes){
+		waitingTimes = newWatitngTimes;
+	}
+	
+	public void writeAllWaitingTimes() {
+		for (Double time : waitingTimes) {
+			System.out.println(time);
+		}
+	}
+	
 	
 	public int getSumOfAllPersons(){
 		int sum = 0;
@@ -69,7 +86,8 @@ public class ResultsHolder {
 					+ result.getNumberOfPeopleInFoodQueue() + divider
 					+ result.getNumberOfPeopleInTableQueue() + divider
 					+ result.getNumberOfPeopleEating() + divider
-					+ result.getNumberOfPeopleFinished());
+					+ result.getNumberOfPeopleFinished() + divider
+					+ waitingTimes.get(i));
 			i++;
 		}
 		writer.close();

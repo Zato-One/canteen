@@ -1,4 +1,4 @@
-package canteen;
+package others;
 
 public class ParametersManager {
 
@@ -8,7 +8,7 @@ public class ParametersManager {
 	private double moveToFinishGaussianStd = 3.2042;
 	private double moveToFinishGaussianMean = 10.667;
 	private double moveToTableQueueGaussianStd = 5;
-	private double moveToTableQueueGaussianMean = 60;
+	private double moveToTableQueueGaussianMean = 65;
 	private int simulationStep = 5;
 	static private Boolean enableDebug = false;
 
