@@ -32,7 +32,7 @@ public class Canteen {
 			simulation.saveToCSV("results.csv", ",");
 			
 			// plot graph to file
-			// simulation.plotGraph();
+			simulation.plotGraph();
 
 			//simulation.writeAllWaitingTimes();
 			
