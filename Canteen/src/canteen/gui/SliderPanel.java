@@ -115,4 +115,8 @@ public class SliderPanel extends JPanel {
 		}
 		textBoxString = null;
 	}
+	
+	public float getValue() {
+		return Float.valueOf(textField.getText());
+	}
 }

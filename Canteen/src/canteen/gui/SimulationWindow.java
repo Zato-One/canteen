@@ -27,8 +27,4 @@ public class SimulationWindow extends JPanel {
         g2.setColor(Color.GRAY);
         g2.drawLine(30, 30, 170, 170);
 	}
-	
-	public static void main(String[] args) {
-		new ConfigurationWindow();
-	}
 }
