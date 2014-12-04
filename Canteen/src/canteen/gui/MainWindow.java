@@ -70,9 +70,9 @@ public class MainWindow extends JFrame implements ActionListener {
     	sliderPanelEatStD = new SliderPanel(
     			"Směrodatná odchylka jezení:", 0.1f, 5f, 10f, true);
     	sliderPanelFoodWaitMean = new SliderPanel(
-    			"Průměrná doba vydydání jídla (min):", 0, 5, 60, true);
+    			"Průměrná doba vydání jídla (min):", 0, 5, 60, true);
     	sliderPanelFoodWaitStD = new SliderPanel(
-    			"Směrodatná odchylka vydydání jídla:", 0.1f, 1f, 10f, true);
+    			"Směrodatná odchylka vydání jídla:", 0.1f, 1f, 10f, true);
     	sliderPanelCapacity = new SliderPanel(
     			"Kapacita jídelny:", 4, 300, 1000, false);
     	sliderPanelStepCount = new SliderPanel(
