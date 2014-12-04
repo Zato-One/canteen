@@ -34,6 +34,11 @@ public class ResultsHolder {
 	
 	public void setWaitingTimes(ArrayList<Double> newWatitngTimes){
 		waitingTimes = newWatitngTimes;
+		for(int i = 0;i<waitingTimes.size();i++){
+			if(waitingTimes.get(i) < 0.0){
+				waitingTimes.set(i, (double)-1);
+			}
+		}
 	}
 	
 	public void writeAllWaitingTimes() {

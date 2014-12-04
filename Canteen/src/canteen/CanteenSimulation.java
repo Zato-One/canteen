@@ -41,54 +41,54 @@ public class CanteenSimulation {
 
 	public void run() throws Exception {
 		try {
-		int i = 0;
-		for (currentTime = 0; currentTime < parametersManager.getSimulationTime(); currentTime++) {
-			// save result
-			resultHolder.addResult(currentTime, personHolder);
-			if (ParametersManager.isDebug()) {
-				resultHolder.writeResult(i);
+			int i = 0;
+			for (currentTime = 0; currentTime < parametersManager
+					.getSimulationTime(); currentTime++) {
+				// save result
+				resultHolder.addResult(currentTime, personHolder);
+				if (ParametersManager.isDebug()) {
+					resultHolder.writeResult(i);
+				}
+
+				// add people
+				personHolder.addPerson(currentTime, incomingPersons
+						.getNumberOfPerson(currentTime, parametersManager));
+				// move from food queue to table queue
+				MoveToTableQueue.move(
+						personHolder.getPersonsInState(PersonState.foodQueue),
+						parametersManager);
+				// move from table queue to eating state
+				MoveToEating.move(personHolder
+						.getPersonsInState(PersonState.tableQueue),
+						personHolder
+								.getNumberOfPersonsInState(PersonState.eating),
+						currentTime, parametersManager);
+				// move from eating state to finish state
+				MoveToFinish.move(
+						personHolder.getPersonsInState(PersonState.eating),
+						currentTime, parametersManager);
+
+				i++;
 			}
 
-			// add people
-			personHolder.addPerson(currentTime, incomingPersons
-					.getNumberOfPerson(currentTime, parametersManager));
-			// move from food queue to table queue
-			MoveToTableQueue.move(
-					personHolder.getPersonsInState(PersonState.foodQueue),
-					parametersManager);
-			// move from table queue to eating state
-			MoveToEating.move(
-					personHolder.getPersonsInState(PersonState.tableQueue),
-					personHolder.getNumberOfPersonsInState(PersonState.eating),
-					currentTime, parametersManager);
-			// move from eating state to finish state
-			MoveToFinish.move(
-					personHolder.getPersonsInState(PersonState.eating),
-					currentTime, parametersManager);
+			calculateWaitingTime();
 
-			i++;
-		}
-		
-		calculateWaitingTime();
-		
-		if(ParametersManager.isDebug()){
-			System.out.println("Total persons incoming: "+incomingPersons.getSumOfAllIncomingPersons());
-			System.out.println("Total persons in last step: "+resultHolder.getSumOfAllPersons());
-			System.out.println("Avegare waiting time: ");
-			resultHolder.writeAllWaitingTimes();
-			
-		}
-		
-		}
-		catch (Exception e){
+			if (ParametersManager.isDebug()) {
+				System.out.println("Total persons incoming: "
+						+ incomingPersons.getSumOfAllIncomingPersons());
+				System.out.println("Total persons in last step: "
+						+ resultHolder.getSumOfAllPersons());
+				System.out.println("Avegare waiting time: ");
+				resultHolder.writeAllWaitingTimes();
+
+			}
+
+		} catch (Exception e) {
 			throw new Exception("Something goes wrong during the simulation.");
 		}
-		
-		
 
 	}
 
-	
 	public ArrayList<Result> getResults() throws Exception {
 		ArrayList<Result> results = resultHolder.getAllResults();
 		if (results.size() > 0) {
@@ -99,24 +99,31 @@ public class CanteenSimulation {
 		}
 	}
 
-
 	private double howLongTakeToReachEatingStateAtTime(int atTime) {
-        ArrayList<Person> personsWithTime = personHolder.getPersonsWithArrivalTime(atTime);
-        ArrayList<Integer> times = new ArrayList<>();
-        
-        for(Person person : personsWithTime){
-        	if (person.getDispatchTime() != 0) {
-        		Integer diff = person.getDispatchTime() - person.getArrivalTime();
-        		times.add(diff);
-        	}
-        }
-        
-        return CalculateAvegare.calculate(times);
-        
-    }
-	
-	
-	private void calculateWaitingTime(){
+		ArrayList<Person> personsWithTime = personHolder
+				.getPersonsWithArrivalTime(atTime);
+		ArrayList<Integer> times = new ArrayList<>();
+
+		for (Person person : personsWithTime) {
+			if (person.getDispatchTime() == person.getArrivalTime()
+					&& person.getDispatchTime() == 0) {
+				times.add(0);
+			} else {
+				if (person.getDispatchTime() != 0) {
+					Integer diff = person.getDispatchTime()
+							- person.getArrivalTime();
+					times.add(diff);
+				} else {
+					times.add(-Integer.MAX_VALUE);
+				}
+			}
+		}
+
+		return CalculateAvegare.calculate(times);
+
+	}
+
+	private void calculateWaitingTime() {
 		ArrayList<Double> waitingTimes = new ArrayList<>();
 		for (int i = 0; i < parametersManager.getSimulationTime(); i++) {
 			waitingTimes.add(howLongTakeToReachEatingStateAtTime(i));
@@ -132,23 +139,21 @@ public class CanteenSimulation {
 			throw new Exception(
 					"Simulation dont have any results. Did you call run() before getWaitingTimes()?");
 		}
-		
-	}
 
+	}
 
 	public void saveToCSV(String filename, String divider) throws Exception {
 		try {
-			resultHolder.saveToCSV(filename, divider,incomingPersons);
+			resultHolder.saveToCSV(filename, divider, incomingPersons);
 		} catch (Exception e) {
 			throw new Exception("Unable to create CSV file");
 		}
 	}
-	
-	public void plotGraph() throws Exception{
+
+	public void plotGraph() throws Exception {
 		try {
 			Runtime.getRuntime().exec("gnuplot plot.gnu");
-		}
-		catch (Exception e){
+		} catch (Exception e) {
 			throw new Exception("Unable to plot graph - need gnuplot!");
 		}
 	}
