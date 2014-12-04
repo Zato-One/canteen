@@ -51,8 +51,7 @@ public class CanteenSimulation {
 				}
 
 				// add people
-				personHolder.addPerson(currentTime, incomingPersons
-						.getNumberOfPerson(currentTime, parametersManager));
+				personHolder.addPerson(currentTime, incomingPersons.getNumberOfPersons(currentTime));
 				// move from food queue to table queue
 				MoveToTableQueue.move(
 						personHolder.getPersonsInState(PersonState.foodQueue),
@@ -87,6 +86,10 @@ public class CanteenSimulation {
 			throw new Exception("Something goes wrong during the simulation.");
 		}
 
+	}
+	
+	public ArrayList<Integer> getIncomingPersons(){
+		return incomingPersons.getIncomingPersons();
 	}
 
 	public ArrayList<Result> getResults() throws Exception {

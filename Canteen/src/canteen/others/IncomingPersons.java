@@ -25,20 +25,18 @@ public class IncomingPersons {
 		}
 	}
 	
+	
+	public ArrayList<Integer> getIncomingPersons(){
+		return values;
+	}
+	
+	
 	public int getSumOfAllIncomingPersons(){
 		int sum = 0;
 		for(int i : values) {
 			sum = sum + i;
 		}
 		return sum;
-	}
-
-	public int getNumberOfPerson(int time, ParametersManager pm) {
-		if (time < values.size()) {
-			return values.get(time);
-		} else {
-			return 0;
-		}
 	}
 	
 	public int getNumberOfPersons(int possitionInArray){

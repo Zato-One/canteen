@@ -15,16 +15,19 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.ApplicationFrame;
 
+import canteen.others.IncomingPersons;
 import canteen.result.Result;
 
 public class ChartFrame extends ApplicationFrame {
 	ArrayList<Result> results;
 	ArrayList<Double> waitingTimes;
+	IncomingPersons incomingPersons;
 
-	public ChartFrame(final String title, ArrayList<Result> results, ArrayList<Double> waitingTimes) throws Exception {
+	public ChartFrame(final String title, ArrayList<Result> results, ArrayList<Double> waitingTimes, IncomingPersons incomingPersons) throws Exception {
 		super(title);
 		this.results = results;
 		this.waitingTimes = waitingTimes;
+		this.incomingPersons = incomingPersons;
 
 		if (results.size() != waitingTimes.size()) {
 			throw new Exception("Results and WaitingTimes have got different sizes");
@@ -39,33 +42,42 @@ public class ChartFrame extends ApplicationFrame {
 	}
 
 	private XYDataset createDataset() {
+		// incoming persons
+		XYSeries incomingPerson = new XYSeries("incomingPersons");
+		int i = 0;
+		for (Result result : results) {
+			incomingPerson.add((double) result.getTime(), (double) incomingPersons.getNumberOfPersons(i));
+			i++;
+		}
+
 		// foodQueue
 		XYSeries foodQueue = new XYSeries("foodQueue");
 		for (Result result : results) {
-			foodQueue.add((double)result.getTime(), (double)result.getNumberOfPeopleInFoodQueue());
+			foodQueue.add((double) result.getTime(), (double) result.getNumberOfPeopleInFoodQueue());
 		}
 
 		// tableQueue
 		XYSeries tableQueue = new XYSeries("tableQueue");
 		for (Result result : results) {
-			tableQueue.add((double)result.getTime(), (double)result.getNumberOfPeopleInTableQueue());
+			tableQueue.add((double) result.getTime(), (double) result.getNumberOfPeopleInTableQueue());
 		}
 
 		// eating
 		XYSeries eating = new XYSeries("eating");
 		for (Result result : results) {
-			eating.add((double)result.getTime(), (double)result.getNumberOfPeopleEating());
+			eating.add((double) result.getTime(), (double) result.getNumberOfPeopleEating());
 		}
 
 		// waitingTime
 		XYSeries waitingTime = new XYSeries("waitingTime");
-		int i = 0;
+		i = 0;
 		for (Result result : results) {
-			waitingTime.add((double)result.getTime(), (double)waitingTimes.get(i));
+			waitingTime.add((double) result.getTime(), (double) waitingTimes.get(i));
 			i++;
 		}
 
 		XYSeriesCollection dataset = new XYSeriesCollection();
+		dataset.addSeries(incomingPerson);
 		dataset.addSeries(foodQueue);
 		dataset.addSeries(tableQueue);
 		dataset.addSeries(eating);
@@ -74,48 +86,48 @@ public class ChartFrame extends ApplicationFrame {
 		return dataset;
 	}
 
-    private JFreeChart createChart(final XYDataset dataset) {
-        
-        // create the chart...
-        final JFreeChart chart = ChartFactory.createXYLineChart(
-            "Line Chart Demo 6",      // chart title
-            "X",                      // x axis label
-            "Y",                      // y axis label
-            dataset,                  // data
-            PlotOrientation.VERTICAL,
-            true,                     // include legend
-            true,                     // tooltips
-            false                     // urls
-        );
+	private JFreeChart createChart(final XYDataset dataset) {
 
-        // NOW DO SOME OPTIONAL CUSTOMISATION OF THE CHART...
-        chart.setBackgroundPaint(Color.white);
+		// create the chart...
+		final JFreeChart chart = ChartFactory.createXYLineChart("Line Chart Demo 6", // chart
+																						// title
+				"X", // x axis label
+				"Y", // y axis label
+				dataset, // data
+				PlotOrientation.VERTICAL, true, // include legend
+				true, // tooltips
+				false // urls
+				);
 
-//        final StandardLegend legend = (StandardLegend) chart.getLegend();
-  //      legend.setDisplaySeriesShapes(true);
-        
-        // get a reference to the plot for further customisation...
-        final XYPlot plot = chart.getXYPlot();
-        plot.setBackgroundPaint(Color.white);
-        
-        plot.setDomainGridlinePaint(Color.lightGray);
-        plot.setRangeGridlinePaint(Color.lightGray);
-        
-        final XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
-        //renderer.setSeriesLinesVisible(1, false);
-        renderer.setSeriesShapesVisible(0, false);
-        renderer.setSeriesShapesVisible(1, false);
-        renderer.setSeriesShapesVisible(2, false);
-        renderer.setSeriesShapesVisible(3, false);
-        plot.setRenderer(renderer);
+		// NOW DO SOME OPTIONAL CUSTOMISATION OF THE CHART...
+		chart.setBackgroundPaint(Color.white);
 
-        // change the auto tick unit selection to integer units only...
-        final NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
-        rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
-        // OPTIONAL CUSTOMISATION COMPLETED.
-                
-        return chart;
-        
-    }
+		// final StandardLegend legend = (StandardLegend) chart.getLegend();
+		// legend.setDisplaySeriesShapes(true);
+
+		// get a reference to the plot for further customisation...
+		final XYPlot plot = chart.getXYPlot();
+		plot.setBackgroundPaint(Color.white);
+
+		plot.setDomainGridlinePaint(Color.lightGray);
+		plot.setRangeGridlinePaint(Color.lightGray);
+
+		final XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
+		// renderer.setSeriesLinesVisible(1, false);
+		renderer.setSeriesShapesVisible(0, false);
+		renderer.setSeriesShapesVisible(1, false);
+		renderer.setSeriesShapesVisible(2, false);
+		renderer.setSeriesShapesVisible(3, false);
+		renderer.setSeriesShapesVisible(4, false);
+		plot.setRenderer(renderer);
+
+		// change the auto tick unit selection to integer units only...
+		final NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
+		rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+		// OPTIONAL CUSTOMISATION COMPLETED.
+
+		return chart;
+
+	}
 
 }
