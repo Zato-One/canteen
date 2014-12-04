@@ -20,7 +20,6 @@ public class Canteen {
 			//parametersManager.setStdForFoodQueue(0.5);
 			//parametersManager.setCanteenCapacity(300);
 			//parametersManager.setSimulationTime(40);
-			//parametersManager.setSimulationStep(5);
 			
 
 			// create simulation
