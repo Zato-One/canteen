@@ -88,7 +88,7 @@ public class LineChartDemo6 extends ApplicationFrame {
         
         final XYSeries series1 = new XYSeries("First");
         series1.add(1.0, 1.0);
-        series1.add(2.0, 4.0);
+        series1.add(3.0, 4.0);
         series1.add(3.0, 3.0);
         series1.add(4.0, 5.0);
         series1.add(5.0, 5.0);

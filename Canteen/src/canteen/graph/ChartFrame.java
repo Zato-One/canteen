@@ -48,20 +48,20 @@ public class ChartFrame extends ApplicationFrame {
 		// tableQueue
 		XYSeries tableQueue = new XYSeries("tableQueue");
 		for (Result result : results) {
-			foodQueue.add((double)result.getTime(), (double)result.getNumberOfPeopleInTableQueue());
+			tableQueue.add((double)result.getTime(), (double)result.getNumberOfPeopleInTableQueue());
 		}
 
 		// eating
 		XYSeries eating = new XYSeries("eating");
 		for (Result result : results) {
-			foodQueue.add((double)result.getTime(), (double)result.getNumberOfPeopleEating());
+			eating.add((double)result.getTime(), (double)result.getNumberOfPeopleEating());
 		}
 
 		// waitingTime
 		XYSeries waitingTime = new XYSeries("waitingTime");
 		int i = 0;
 		for (Result result : results) {
-			foodQueue.add((double)result.getTime(), (double)waitingTimes.get(i));
+			waitingTime.add((double)result.getTime(), (double)waitingTimes.get(i));
 			i++;
 		}
 
@@ -96,14 +96,17 @@ public class ChartFrame extends ApplicationFrame {
         
         // get a reference to the plot for further customisation...
         final XYPlot plot = chart.getXYPlot();
-        plot.setBackgroundPaint(Color.lightGray);
+        plot.setBackgroundPaint(Color.white);
     //    plot.setAxisOffset(new Spacer(Spacer.ABSOLUTE, 5.0, 5.0, 5.0, 5.0));
-        plot.setDomainGridlinePaint(Color.white);
-        plot.setRangeGridlinePaint(Color.white);
+        plot.setDomainGridlinePaint(Color.lightGray);
+        plot.setRangeGridlinePaint(Color.lightGray);
         
         final XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
-        renderer.setSeriesLinesVisible(0, false);
+        //renderer.setSeriesLinesVisible(1, false);
+        renderer.setSeriesShapesVisible(0, false);
         renderer.setSeriesShapesVisible(1, false);
+        renderer.setSeriesShapesVisible(2, false);
+        renderer.setSeriesShapesVisible(3, false);
         plot.setRenderer(renderer);
 
         // change the auto tick unit selection to integer units only...
