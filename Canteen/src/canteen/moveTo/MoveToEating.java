@@ -1,11 +1,10 @@
 package canteen.moveTo;
 
+import java.util.ArrayList;
+
 import canteen.others.ParametersManager;
 import canteen.person.Person;
 import canteen.person.PersonState;
-
-import java.util.ArrayList;
-import java.util.Random;
 
 public class MoveToEating {
 

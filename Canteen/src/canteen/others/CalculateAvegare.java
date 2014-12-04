@@ -1,7 +1,6 @@
 package canteen.others;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class CalculateAvegare {
 	public static double calculate(ArrayList<Integer> values) {

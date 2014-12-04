@@ -1,8 +1,5 @@
 package canteen.result;
 
-import org.omg.Dynamic.Parameter;
-
-import canteen.others.ParametersManager;
 
 public class Result {
     private int time = 0;

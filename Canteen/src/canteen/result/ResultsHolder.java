@@ -1,14 +1,11 @@
 package canteen.result;
 
+import java.io.PrintWriter;
+import java.util.ArrayList;
+
 import canteen.others.IncomingPersons;
 import canteen.person.PersonHolder;
 import canteen.person.PersonState;
-import canteen.result.Result;
-
-import java.io.FileWriter;
-import java.io.PrintWriter;
-import java.lang.reflect.WildcardType;
-import java.util.ArrayList;
 
 public class ResultsHolder {
 
