@@ -34,14 +34,8 @@ public class IncomingPersons {
 	}
 
 	public int getNumberOfPerson(int time, ParametersManager pm) {
-		int simulationStep = pm.getSimulationStep();
-		int position = 0;
-		if(simulationStep != 0) {
-			position = time / simulationStep; 
-		}
-		
-		if (position < values.size()) {
-			return values.get(position);
+		if (time < values.size()) {
+			return values.get(time);
 		} else {
 			return 0;
 		}

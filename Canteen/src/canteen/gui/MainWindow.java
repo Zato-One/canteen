@@ -51,7 +51,6 @@ public class MainWindow extends JFrame implements ActionListener {
 		parametersManager.setStdForFoodQueue(sliderPanelFoodWaitStD.getValue());
 		parametersManager.setCanteenCapacity((int) sliderPanelCapacity.getValue());
 		parametersManager.setSimulationTime((int) sliderPanelStepCount.getValue());
-		parametersManager.setSimulationStep((int) sliderPanelInterval.getValue());
 		
 		// create simulation
 		CanteenSimulation simulation;

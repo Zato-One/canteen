@@ -42,9 +42,7 @@ public class CanteenSimulation {
 	public void run() throws Exception {
 		try {
 		int i = 0;
-		for (currentTime = 0; currentTime < (parametersManager
-				.getSimulationTime() * parametersManager.getSimulationStep()); currentTime += parametersManager
-				.getSimulationStep()) {
+		for (currentTime = 0; currentTime < parametersManager.getSimulationTime(); currentTime++) {
 			// save result
 			resultHolder.addResult(currentTime, personHolder);
 			if (ParametersManager.isDebug()) {
@@ -120,7 +118,7 @@ public class CanteenSimulation {
 	
 	private void calculateWaitingTime(){
 		ArrayList<Double> waitingTimes = new ArrayList<>();
-		for (int i = 0; i < (parametersManager.getSimulationTime() * parametersManager.getSimulationStep()); i = i + parametersManager.getSimulationStep()) {
+		for (int i = 0; i < parametersManager.getSimulationTime(); i++) {
 			waitingTimes.add(howLongTakeToReachEatingStateAtTime(i));
 		}
 		resultHolder.setWaitingTimes(waitingTimes);

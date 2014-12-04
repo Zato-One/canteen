@@ -4,12 +4,11 @@ public class ParametersManager {
 
 	private String incomingPersonsfilename = "incoming_persons_data.txt";
 	private int canteenCapacity = 320;
-	private int simulationTime = 73;
+	private int simulationTime = 6*60; // total hours to minutes
 	private double moveToFinishGaussianStd = 3.2042;
 	private double moveToFinishGaussianMean = 10.667;
-	private double moveToTableQueueGaussianStd = 5;
-	private double moveToTableQueueGaussianMean = 65;
-	private int simulationStep = 5;
+	private double moveToTableQueueGaussianStd = 3;
+	private double moveToTableQueueGaussianMean = 13;
 	static private Boolean enableDebug = false;
 
 	/**
@@ -86,16 +85,6 @@ public class ParametersManager {
 	}
 
 	/**
-	 * Set simulation step time
-	 * 
-	 * @param step
-	 *           Value of step in minutes 
-	 */
-	public void setSimulationStep(int step) {
-		simulationStep = step;
-	}
-	
-	/**
 	 * Enable debug console output
 	 *  
 	 */
@@ -120,9 +109,6 @@ public class ParametersManager {
 		return simulationTime;
 	}
 	
-	public int getSimulationStep(){
-		return simulationStep;
-	}
 
 	public double getMoveToFinishGaussianMean() {
 		return moveToFinishGaussianMean;
@@ -144,7 +130,6 @@ public class ParametersManager {
 		System.out.println("File: "+incomingPersonsfilename);
 		System.out.println("Canteen capacity: "+canteenCapacity);
 		System.out.println("Simulation time: "+simulationTime);
-		System.out.println("Step size: "+simulationStep);
 		System.out.println("MoveToFinishGaussianStd: "+moveToFinishGaussianStd);
 		System.out.println("MoveToFinishGaussianMean: "+moveToFinishGaussianMean);
 		System.out.println("MoveToTableQueueGaussianStd: "+moveToTableQueueGaussianStd);
