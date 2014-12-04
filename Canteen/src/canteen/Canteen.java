@@ -2,6 +2,9 @@ package canteen;
 
 import java.util.ArrayList;
 
+import org.jfree.ui.RefineryUtilities;
+
+import canteen.graph.ChartFrame;
 import canteen.others.ParametersManager;
 import canteen.result.Result;
 
@@ -35,13 +38,18 @@ public class Canteen {
 			simulation.plotGraph();
 			
 			
-			// how to get simulation results
+			// get simulation results
 			ArrayList<Result> results = simulation.getResults();
 			
-			// how to get average waiting times
+			// get average waiting times
 			ArrayList<Double> waitingTimes = simulation.getWaitingTimes();
 			
-
+			// show graph!!
+			final ChartFrame demo = new ChartFrame("Chart",results,waitingTimes);
+			demo.pack();
+			RefineryUtilities.centerFrameOnScreen(demo);
+			demo.setVisible(true);
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

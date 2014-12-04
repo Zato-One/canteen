@@ -38,7 +38,7 @@
  *
  */
 
-package canteen.graph;
+package canteen.graph.examples;
 
 import java.awt.BasicStroke;
 import java.awt.Color;

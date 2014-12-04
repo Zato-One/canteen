@@ -1,4 +1,4 @@
-package canteen.graph;
+package canteen.graph.examples;
 
 /* ===========================================================
  * JFreeChart : a free chart library for the Java(tm) platform
