@@ -87,9 +87,11 @@ public class CanteenSimulation {
 
 	}
 	
-	public ArrayList<Integer> getIncomingPersons(){
-		return incomingPersons.getIncomingPersons();
+	
+	public IncomingPersons getIncomingPersons(){
+		return incomingPersons;
 	}
+	
 
 	public ArrayList<Result> getResults() throws Exception {
 		ArrayList<Result> results = resultHolder.getAllResults();

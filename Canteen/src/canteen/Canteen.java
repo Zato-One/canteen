@@ -45,7 +45,7 @@ public class Canteen {
 			ArrayList<Double> waitingTimes = simulation.getWaitingTimes();
 			
 			// show graph!!
-			final ChartFrame demo = new ChartFrame("Chart",results,waitingTimes,simulation.incomingPersons);
+			final ChartFrame demo = new ChartFrame("Chart",results,waitingTimes,simulation.getIncomingPersons());
 			demo.pack();
 			RefineryUtilities.centerFrameOnScreen(demo);
 			demo.setVisible(true);
