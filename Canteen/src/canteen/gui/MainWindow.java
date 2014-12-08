@@ -56,7 +56,7 @@ public class MainWindow extends JFrame implements ActionListener {
     	// define simulation parameters, each method is decribed in JavaDocs
 		ParametersManager parametersManager = new ParametersManager();
 		parametersManager.setIncomingPersonsDataFileName("real_incoming_persons_data_per_minute.txt");
-		ParametersManager.enableDebug();
+		//ParametersManager.enableDebug();
 		// no initialization these values will lead to use default values - which are based on real data  
 		parametersManager.setMeanForEating(sliderPanelEatMean.getValue());
 		parametersManager.setStdForEating(sliderPanelEatStD.getValue());
@@ -70,8 +70,7 @@ public class MainWindow extends JFrame implements ActionListener {
 			simulation = new CanteenSimulation(parametersManager);
 			// run simulation
 			simulation.run();
-			// TODO toto casem odstranit:
-			for (int i = 0; i < 50; ++i) System.out.println();
+			
 			results = simulation.getResults();
 			actualStepNumber = 0;
 			initSimulationPanel();
