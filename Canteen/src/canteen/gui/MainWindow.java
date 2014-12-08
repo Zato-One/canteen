@@ -27,12 +27,14 @@ public class MainWindow extends JFrame implements ActionListener {
 	private SliderPanel sliderPanelFoodWaitStD;
 	private SliderPanel sliderPanelCapacity;
 	private SliderPanel sliderPanelStepCount;
-	private SliderPanel sliderPanelInterval;
+	//private SliderPanel sliderPanelInterval;
+	private RoundValuePanel roundPanel;
 	
     public MainWindow() {
     	initComponents();
     	initConfigurationPanel();
-		this.setTitle("Nastavení");
+    	
+    	this.setTitle("Nastavení");
 		this.pack();
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
@@ -76,8 +78,8 @@ public class MainWindow extends JFrame implements ActionListener {
     			"Kapacita jídelny:", 4, 300, 1000, false);
     	sliderPanelStepCount = new SliderPanel(
     			"Počet kroků:", 10, 73, 1000, false);
-    	sliderPanelInterval = new SliderPanel(
-    			"Doba mezi intervaly (min):", 1, 5, 10, false);
+    	/*sliderPanelInterval = new SliderPanel(
+    			"Doba mezi intervaly (min):", 1, 5, 10, false);*/
     	
     	JButton runButton = new JButton("Spustit");
     	runButton.setActionCommand("confirm");
@@ -96,7 +98,7 @@ public class MainWindow extends JFrame implements ActionListener {
     		.addComponent(sliderPanelFoodWaitStD, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
     		.addComponent(sliderPanelCapacity, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
     		.addComponent(sliderPanelStepCount, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-    		.addComponent(sliderPanelInterval, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+    		//.addComponent(sliderPanelInterval, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         	.addGroup(sliderLayout.createSequentialGroup()
 	        	.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 	    		.addComponent(runButton, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, RUN_BUTTON_SIZE.width)
@@ -111,7 +113,7 @@ public class MainWindow extends JFrame implements ActionListener {
         	.addComponent(sliderPanelFoodWaitStD, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
         	.addComponent(sliderPanelCapacity, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
         	.addComponent(sliderPanelStepCount, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        	.addComponent(sliderPanelInterval, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        	//.addComponent(sliderPanelInterval, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
         	.addGroup(sliderLayout.createSequentialGroup()
 	        	.addComponent(runButton, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
         	)

@@ -37,7 +37,7 @@ public class SliderPanel extends JPanel {
         this.realValues = realValues;
         
         label = createLabel(labelText);
-		slider = createSlider(minValue, maxValue, initValue, listener);
+        slider = createSlider(minValue, maxValue, initValue, listener);
 		if (realValues)
 			textField = createTextField(charColumns, String.valueOf(initValue));
 		else
