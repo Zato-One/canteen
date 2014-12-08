@@ -1,9 +1,7 @@
 package canteen.gui;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
@@ -28,6 +26,7 @@ public class RoundValuePanel extends JPanel {
 		this.WINDOW_WIDTH = panelSize;
 		this.setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_WIDTH));
 		this.setOpaque(false);
+		this.repaint();
 	}
 	
 	protected void paintComponent(Graphics g) {
@@ -39,20 +38,19 @@ public class RoundValuePanel extends JPanel {
 		this.actualValue = (value > maxValue) ? maxValue : value;
 		if (this.actualValue < minValue)
 			this.actualValue = minValue;
-	}
-	
-	public void repaintPanel() {
-		repaint();
+		this.repaint();
 	}
 	
 	private void drawLine(Graphics2D g2) {
 		int circleSize = (int) (((float) WINDOW_WIDTH / 2)
         		* (((float) (actualValue - minValue)
         		/ (float) (maxValue - minValue)) + 1));  
+		if (circleSize < WINDOW_WIDTH / 2)
+			circleSize = WINDOW_WIDTH / 2;
         
         int offset = (WINDOW_WIDTH - circleSize) / 2;
         
-        g2.setStroke(new BasicStroke(3));
+        g2.setStroke(new java.awt.BasicStroke(3));
         g2.setColor(getRelevantColor());
         
         g2.fillOval(offset + 2, offset + 2, circleSize - 4, circleSize - 4);
@@ -62,7 +60,7 @@ public class RoundValuePanel extends JPanel {
         
         g2.setColor(Color.black);
         
-        g2.setFont(new Font("Dialog", Font.BOLD, 16));
+        g2.setFont(new java.awt.Font("Dialog", java.awt.Font.BOLD, 16));
         
         String actualValueText = String.valueOf(actualValue);
         int stringWidth = (int)
