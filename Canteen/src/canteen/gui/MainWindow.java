@@ -24,8 +24,8 @@ public class MainWindow extends JFrame implements ActionListener {
     private JPanel buttonPanel;
     private JPanel configurationPanel;
     private JTabbedPane tabs;
-    private JPanel simulationPanel;
     private JPanel graphPanel;
+    private JPanel simulationPanel;
     private SliderPanel sliderPanelEatMean;
 	private SliderPanel sliderPanelEatStD;
 	private SliderPanel sliderPanelFoodWaitMean;
@@ -35,10 +35,6 @@ public class MainWindow extends JFrame implements ActionListener {
 	//private SliderPanel sliderPanelInterval;
 	private CanteenSimulation simulation;
 	private ArrayList<Result> results;
-	private RoundValuePanel roundPanelEating;
-	private RoundValuePanel roundPanelFinished;
-	private RoundValuePanel roundPanelInFoodQueue;
-	private RoundValuePanel roundPanelInTableQueue;
 	private int actualStepNumber = 0;
 	
 	public MainWindow() {
@@ -73,7 +69,13 @@ public class MainWindow extends JFrame implements ActionListener {
 			
 			results = simulation.getResults();
 			actualStepNumber = 0;
-			initSimulationPanel();
+			simulationPanel = new SimulationPanel(results);
+			((SimulationPanel) simulationPanel).initSimulationPanel();
+			
+			java.awt.Component graphComponent =  tabs.getComponent(1);
+			tabs.removeAll();
+			tabs.add("Simulace", simulationPanel);
+			tabs.add("Graf", graphComponent);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -197,65 +199,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		);
     }
 	
-	private void initSimulationPanel() {
-		if (results == null) return;
-		int maxPeopleEating = Integer.MIN_VALUE;
-		int maxPeopleFinished = Integer.MIN_VALUE;
-		int maxPeopleInFoodQueue = Integer.MIN_VALUE;
-		int maxPeopleInTableQueue = Integer.MIN_VALUE;
-		int actualPeopleEating;
-		int actualPeopleFinished;
-		int actualPeopleInFoodQueue;
-		int actualPeopleInTableQueue;
-		
-		simulationPanel.removeAll();
-		
-		for (int i = 0; i < results.size(); i++) {
-			actualPeopleEating		 = results.get(i).getNumberOfPeopleEating();
-			actualPeopleFinished	 = results.get(i).getNumberOfPeopleFinished();
-			actualPeopleInFoodQueue	 = results.get(i).getNumberOfPeopleInFoodQueue();
-			actualPeopleInTableQueue = results.get(i).getNumberOfPeopleInTableQueue();
-			maxPeopleEating =
-					(actualPeopleEating > maxPeopleEating) ?
-							actualPeopleEating : maxPeopleEating;
-			maxPeopleFinished =
-					(actualPeopleFinished > maxPeopleFinished) ?
-							actualPeopleFinished : maxPeopleFinished;
-			maxPeopleInFoodQueue =
-					(actualPeopleInFoodQueue > maxPeopleInFoodQueue) ?
-							actualPeopleInFoodQueue : maxPeopleInFoodQueue;
-			maxPeopleInTableQueue =
-					(actualPeopleInTableQueue > maxPeopleInTableQueue) ?
-							actualPeopleInTableQueue : maxPeopleInTableQueue;
-		}
-		
-		roundPanelEating = new RoundValuePanel(0,
-				results.get(0).getNumberOfPeopleEating(), maxPeopleEating);
-		roundPanelFinished = new RoundValuePanel(0,
-				results.get(0).getNumberOfPeopleFinished(), maxPeopleFinished);
-		roundPanelInFoodQueue = new RoundValuePanel(0,
-				results.get(0).getNumberOfPeopleInFoodQueue(), maxPeopleInFoodQueue);
-		roundPanelInTableQueue = new RoundValuePanel(0,
-				results.get(0).getNumberOfPeopleInTableQueue(), maxPeopleInTableQueue);
-		
-		simulationPanel.add(roundPanelInFoodQueue);
-		simulationPanel.add(roundPanelInTableQueue);
-		simulationPanel.add(roundPanelEating);
-		simulationPanel.add(roundPanelFinished);
-	}
-	
-	private void updateRoundPanels() {
-		roundPanelEating.setValue(
-				results.get(actualStepNumber).getNumberOfPeopleEating());
-		roundPanelFinished.setValue(
-				results.get(actualStepNumber).getNumberOfPeopleFinished());
-		roundPanelInFoodQueue.setValue(
-				results.get(actualStepNumber).getNumberOfPeopleInFoodQueue());
-		roundPanelInTableQueue.setValue(
-				results.get(actualStepNumber).getNumberOfPeopleInTableQueue());
-	}
-    
-    public static void main(String[] args) {
+	public static void main(String[] args) {
 		new MainWindow();
 	}
 
@@ -269,27 +213,27 @@ public class MainWindow extends JFrame implements ActionListener {
 		case "first":
 			if (results != null) {
 				actualStepNumber = 0;
-				updateRoundPanels();
+				((SimulationPanel) simulationPanel).updateRoundPanels(actualStepNumber);
 			}
 			break;
 		case "previous":
 			if (results != null
 					&& actualStepNumber > 0) {
 				actualStepNumber -= 1;
-				updateRoundPanels();
+				((SimulationPanel) simulationPanel).updateRoundPanels(actualStepNumber);
 			}
 			break;
 		case "next":
 			if (results != null
 					&& actualStepNumber < results.size() - 1) {
 				actualStepNumber += 1;
-				updateRoundPanels();
+				((SimulationPanel) simulationPanel).updateRoundPanels(actualStepNumber);
 			}
 			break;
 		case "last":
 			if (results != null) {
 				actualStepNumber = results.size() - 1;
-				updateRoundPanels();
+				((SimulationPanel) simulationPanel).updateRoundPanels(actualStepNumber);
 			}
 			break;
 		default:
