@@ -27,7 +27,8 @@ public class SimulationPanel extends JPanel {
 		this.results = results;
 		
 		try {
-			image = ImageIO.read(new File("canteen_plan.png"));
+			image = ImageIO.read(getClass().getClassLoader()
+					.getResourceAsStream("canteen_plan.png"));
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		}

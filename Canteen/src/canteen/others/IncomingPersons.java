@@ -45,7 +45,9 @@ public class IncomingPersons {
 	}
 
 	private void loadFromFile(String filename) throws Exception {
-		Scanner scanner = new Scanner(new File(filename));
+		//Scanner scanner = new Scanner(new File(filename));
+		Scanner scanner = new Scanner(getClass().getClassLoader()
+				.getResourceAsStream(filename));
 		while (scanner.hasNextInt()) {
 			values.add(scanner.nextInt());
 		}
