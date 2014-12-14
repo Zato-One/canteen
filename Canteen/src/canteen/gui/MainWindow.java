@@ -10,7 +10,10 @@ import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
 import javax.swing.JTabbedPane;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import canteen.CanteenSimulation;
 import canteen.others.ParametersManager;
@@ -21,7 +24,7 @@ public class MainWindow extends JFrame implements ActionListener {
 	private static final Dimension SIMULATION_PANEL_SIZE = new Dimension(600, 500);
     private static final Dimension CONFIG_PANEL_SIZE = new Dimension(250, 500);
     private static final Dimension RUN_BUTTON_SIZE = new Dimension(150, 50);
-    private JPanel buttonPanel;
+    private JPanel controlPanel;
     private JPanel configurationPanel;
     private JTabbedPane tabs;
     private JPanel graphPanel;
@@ -35,7 +38,8 @@ public class MainWindow extends JFrame implements ActionListener {
 	//private SliderPanel sliderPanelInterval;
 	private CanteenSimulation simulation;
 	private ArrayList<Result> results;
-	private int actualStepNumber = 0;
+	//private int actualStepNumber = 0;
+	private SliderPanel timeSlider;
 	
 	public MainWindow() {
     	initComponents();
@@ -49,6 +53,8 @@ public class MainWindow extends JFrame implements ActionListener {
 	}
     
     private void initSimulation() {
+    	timeSlider.setMaximum(sliderPanelStepCount.getValue());
+    	
     	// define simulation parameters, each method is decribed in JavaDocs
 		ParametersManager parametersManager = new ParametersManager();
 		parametersManager.setIncomingPersonsDataFileName("real_incoming_persons_data_per_minute.txt");
@@ -68,7 +74,6 @@ public class MainWindow extends JFrame implements ActionListener {
 			simulation.run();
 			
 			results = simulation.getResults();
-			actualStepNumber = 0;
 			simulationPanel = new SimulationPanel(results);
 			((SimulationPanel) simulationPanel).initSimulationPanel();
 			
@@ -76,8 +81,14 @@ public class MainWindow extends JFrame implements ActionListener {
 			tabs.removeAll();
 			tabs.add("Simulace", simulationPanel);
 			tabs.add("Graf", graphComponent);
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+		}
+		
+		if (results != null) {
+			((SimulationPanel) simulationPanel).updateRoundPanels(
+				timeSlider.getIntegerValue() - 1);
 		}
     }
     
@@ -144,11 +155,11 @@ public class MainWindow extends JFrame implements ActionListener {
         tabs.addTab("Simulace", simulationPanel);
         tabs.addTab("Graf", graphPanel);
         
-        buttonPanel = new javax.swing.JPanel();
+        controlPanel = new javax.swing.JPanel();
         
         configurationPanel.setBorder(new javax.swing.border.TitledBorder("Nastavení"));
         //tabs.setBorder(new javax.swing.border.LineBorder(Color.black));
-        buttonPanel.setBorder(new javax.swing.border.LineBorder(Color.gray));
+        controlPanel.setBorder(new javax.swing.border.LineBorder(Color.gray));
         
         JButton stepFirst = new JButton("První krok");
         JButton stepPrevious = new JButton("Předchozí krok");
@@ -163,11 +174,45 @@ public class MainWindow extends JFrame implements ActionListener {
 		stepNext.addActionListener(this);
 		stepLast.setActionCommand("last");
 		stepLast.addActionListener(this);
+		
+		timeSlider = new SliderPanel("Výběr kroku: ", 1, 1,
+				1, false);
+		
+		ChangeListener listener = new ChangeListener() {
+            public void stateChanged(ChangeEvent e) {
+            	doTimeSliderAction(e);
+            }
+        };
         
-        buttonPanel.add(stepFirst);
-        buttonPanel.add(stepPrevious);
-        buttonPanel.add(stepNext);
-        buttonPanel.add(stepLast);
+        timeSlider.addChangeListener(listener);
+		
+		GroupLayout controlLayout = new GroupLayout(controlPanel);
+        controlPanel.setLayout(controlLayout);
+        controlLayout.setAutoCreateGaps(true);
+        controlLayout.setAutoCreateContainerGaps(true);
+        
+        controlLayout.setHorizontalGroup(
+        	controlLayout.createParallelGroup()
+        	.addComponent(timeSlider)
+        	.addGroup(controlLayout.createSequentialGroup()
+    			.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+    			.addComponent(stepFirst)
+        		.addComponent(stepPrevious)
+        		.addComponent(stepNext)
+        		.addComponent(stepLast)
+        		.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        	)
+        );
+        controlLayout.setVerticalGroup(
+        	controlLayout.createSequentialGroup()
+        	.addComponent(timeSlider)
+        	.addGroup(controlLayout.createParallelGroup()
+    			.addComponent(stepFirst)
+        		.addComponent(stepPrevious)
+        		.addComponent(stepNext)
+        		.addComponent(stepLast)
+        	)
+        );
         
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -179,7 +224,7 @@ public class MainWindow extends JFrame implements ActionListener {
     		.addGroup(layout.createParallelGroup()
 	    		.addComponent(tabs, GroupLayout.DEFAULT_SIZE,
 	    				SIMULATION_PANEL_SIZE.width, GroupLayout.DEFAULT_SIZE)
-	    		.addComponent(buttonPanel)
+	    		.addComponent(controlPanel)
     		)
     		.addComponent(configurationPanel, GroupLayout.DEFAULT_SIZE,
     				CONFIG_PANEL_SIZE.width, CONFIG_PANEL_SIZE.width + 200)
@@ -190,7 +235,7 @@ public class MainWindow extends JFrame implements ActionListener {
 	    		.addGroup(layout.createSequentialGroup()
 		    		.addComponent(tabs, GroupLayout.DEFAULT_SIZE,
 		    				SIMULATION_PANEL_SIZE.height, Short.MAX_VALUE)
-		    		.addComponent(buttonPanel, GroupLayout.PREFERRED_SIZE,
+		    		.addComponent(controlPanel, GroupLayout.PREFERRED_SIZE,
 		    				GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 	    		)
 	    		.addComponent(configurationPanel, GroupLayout.DEFAULT_SIZE,
@@ -203,6 +248,13 @@ public class MainWindow extends JFrame implements ActionListener {
 		new MainWindow();
 	}
 
+	private void doTimeSliderAction(ChangeEvent e) {
+		if (results != null) {
+			((SimulationPanel) simulationPanel).updateRoundPanels(
+				timeSlider.getIntegerValue() - 1);
+		}
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		switch (e.getActionCommand()) {
@@ -212,28 +264,32 @@ public class MainWindow extends JFrame implements ActionListener {
 			break;
 		case "first":
 			if (results != null) {
-				actualStepNumber = 0;
-				((SimulationPanel) simulationPanel).updateRoundPanels(actualStepNumber);
+				timeSlider.setValue(1);
+				((SimulationPanel) simulationPanel).updateRoundPanels(
+						timeSlider.getIntegerValue() - 1);
 			}
 			break;
 		case "previous":
 			if (results != null
-					&& actualStepNumber > 0) {
-				actualStepNumber -= 1;
-				((SimulationPanel) simulationPanel).updateRoundPanels(actualStepNumber);
+					&& timeSlider.getIntegerValue() > 1) {
+				timeSlider.setValue(timeSlider.getIntegerValue() - 1);
+				((SimulationPanel) simulationPanel).updateRoundPanels(
+						timeSlider.getIntegerValue() - 1);
 			}
 			break;
 		case "next":
 			if (results != null
-					&& actualStepNumber < results.size() - 1) {
-				actualStepNumber += 1;
-				((SimulationPanel) simulationPanel).updateRoundPanels(actualStepNumber);
+					&& timeSlider.getIntegerValue() < results.size()) {
+				timeSlider.setValue(timeSlider.getIntegerValue() + 1);
+				((SimulationPanel) simulationPanel).updateRoundPanels(
+						timeSlider.getIntegerValue() - 1);
 			}
 			break;
 		case "last":
 			if (results != null) {
-				actualStepNumber = results.size() - 1;
-				((SimulationPanel) simulationPanel).updateRoundPanels(actualStepNumber);
+				timeSlider.setValue(results.size());
+				((SimulationPanel) simulationPanel).updateRoundPanels(
+						timeSlider.getIntegerValue() - 1);
 			}
 			break;
 		default:

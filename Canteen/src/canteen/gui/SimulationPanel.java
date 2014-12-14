@@ -77,7 +77,7 @@ public class SimulationPanel extends JPanel {
 		this.setLayout(null);
 		
 		roundPanelInFoodQueue.setBounds(320, 170, 500, 500);
-		roundPanelInTableQueue.setBounds(110, 20, 500, 500);
+		roundPanelInTableQueue.setBounds(110, 40, 500, 500);
 		roundPanelEating.setBounds(112, 179, 500, 500);
 		roundPanelFinished.setBounds(40, 370, 500, 500);
 		

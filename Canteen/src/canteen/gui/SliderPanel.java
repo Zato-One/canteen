@@ -38,7 +38,7 @@ public class SliderPanel extends JPanel {
         
         label = createLabel(labelText);
         slider = createSlider(minValue, maxValue, initValue, listener);
-		if (realValues)
+        if (realValues)
 			textField = createTextField(charColumns, String.valueOf(initValue));
 		else
 			textField = createTextField(charColumns, String.valueOf((int) initValue));
@@ -116,7 +116,33 @@ public class SliderPanel extends JPanel {
 		textBoxString = null;
 	}
 	
-	public float getValue() {
+	public void addChangeListener(ChangeListener listener) {
+		slider.addChangeListener(listener);
+	}
+	
+	public float getFloatValue() {
 		return Float.valueOf(textField.getText());
+	}
+	
+	public int getIntegerValue() {
+		return Integer.valueOf(textField.getText());
+	}
+	
+	public float getValue() {
+		return getFloatValue();
+	}
+	
+	public void setValue(float value) {
+		if (realValues)
+			slider.setValue((int) (value * 100));
+		else
+			slider.setValue((int) value);
+	}
+	
+	public void setMaximum(float maximum) {
+		if (realValues)
+			slider.setMaximum((int) (maximum * 100));
+		else
+			slider.setMaximum((int) maximum);
 	}
 }
