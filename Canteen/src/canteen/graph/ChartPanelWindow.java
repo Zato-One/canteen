@@ -18,12 +18,13 @@ import org.jfree.ui.ApplicationFrame;
 import canteen.others.IncomingPersons;
 import canteen.result.Result;
 
-public class ChartFrame extends ApplicationFrame {
+@SuppressWarnings("serial")
+public class ChartPanelWindow extends ApplicationFrame {
 	ArrayList<Result> results;
 	ArrayList<Double> waitingTimes;
 	IncomingPersons incomingPersons;
 
-	public ChartFrame(final String title, ArrayList<Result> results, ArrayList<Double> waitingTimes, IncomingPersons incomingPersons) throws Exception {
+	public ChartPanelWindow(final String title, ArrayList<Result> results, ArrayList<Double> waitingTimes, IncomingPersons incomingPersons) throws Exception {
 		super(title);
 		this.results = results;
 		this.waitingTimes = waitingTimes;

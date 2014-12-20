@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.jfree.ui.RefineryUtilities;
 
-import canteen.graph.ChartFrame;
+import canteen.graph.ChartPanelWindow;
 import canteen.others.ParametersManager;
 import canteen.result.Result;
 
@@ -35,7 +35,7 @@ public class Canteen {
 			simulation.saveToCSV("results.csv", ",");
 			
 			// plot graph to file (only unix like OS with gnuplot)
-			simulation.plotGraph();
+			//simulation.plotGraph();
 			
 			
 			// get simulation results
@@ -45,7 +45,7 @@ public class Canteen {
 			ArrayList<Double> waitingTimes = simulation.getWaitingTimes();
 			
 			// show graph!!
-			final ChartFrame demo = new ChartFrame("Chart",results,waitingTimes,simulation.getIncomingPersons());
+			final ChartPanelWindow demo = new ChartPanelWindow("Chart",results,waitingTimes,simulation.getIncomingPersons());
 			demo.pack();
 			RefineryUtilities.centerFrameOnScreen(demo);
 			demo.setVisible(true);

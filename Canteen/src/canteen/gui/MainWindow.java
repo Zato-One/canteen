@@ -10,12 +10,12 @@ import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JSlider;
 import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import canteen.CanteenSimulation;
+import canteen.graph.ChartPanelContainer;
 import canteen.others.ParametersManager;
 import canteen.result.Result;
 
@@ -77,10 +77,17 @@ public class MainWindow extends JFrame implements ActionListener {
 			simulationPanel = new SimulationPanel(results);
 			((SimulationPanel) simulationPanel).initSimulationPanel();
 			
-			java.awt.Component graphComponent =  tabs.getComponent(1);
+			//java.awt.Component graphComponent =  tabs.getComponent(1);
 			tabs.removeAll();
 			tabs.add("Simulace", simulationPanel);
-			tabs.add("Graf", graphComponent);
+			
+			ArrayList<Double> waitingTimes = simulation.getWaitingTimes();
+			
+			final ChartPanelContainer chartFrame = new ChartPanelContainer(
+				"", results,waitingTimes,simulation.getIncomingPersons());
+			
+			//tabs.add("Graf", graphComponent);
+			tabs.add("Graf", chartFrame.getChartPanel());
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -154,7 +161,7 @@ public class MainWindow extends JFrame implements ActionListener {
         graphPanel = new JPanel();
         tabs.addTab("Simulace", simulationPanel);
         tabs.addTab("Graf", graphPanel);
-        
+		
         controlPanel = new javax.swing.JPanel();
         
         configurationPanel.setBorder(new javax.swing.border.TitledBorder("Nastavení"));
