@@ -1,13 +1,14 @@
 package canteen.gui;
 
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import canteen.result.Result;
@@ -21,7 +22,7 @@ public class SimulationPanel extends JPanel {
 	private RoundValuePanel roundPanelInTableQueue;
 	private ArrayList<Result> results;
 	private BufferedImage image;
-	
+	private JLabel timeLabel;
 	
 	public SimulationPanel(ArrayList<Result> results) {
 		this.results = results;
@@ -86,6 +87,27 @@ public class SimulationPanel extends JPanel {
 		this.add(roundPanelInTableQueue);
 		this.add(roundPanelEating);
 		this.add(roundPanelFinished);
+		
+		JLabel foodQueueLabel = new JLabel("fronta na jídlo");
+		JLabel tableQueueLabel = new JLabel("fronta na sednutí");
+		JLabel eatingLabel = new JLabel("lidé za stolem");
+		JLabel finishedLabel = new JLabel("najezených lidí celkem");
+		timeLabel = new JLabel("Čas: ");
+		timeLabel.setFont(new Font(timeLabel.getFont().getName(),
+				timeLabel.getFont().getStyle(), 30));
+		
+		foodQueueLabel.setBounds(340, 260, 100, 20);
+		tableQueueLabel.setBounds(70, 30, 100, 20);
+		eatingLabel.setBounds(33, 219, 100, 20);
+		finishedLabel.setBounds(145, 410, 140, 20);
+		timeLabel.setBounds(430, 400, 400, 100);
+		timeLabel.setText("Čas: " + results.get(0).getFormattedTime());
+		
+		this.add(foodQueueLabel);
+		this.add(tableQueueLabel);
+		this.add(eatingLabel);
+		this.add(finishedLabel);
+		this.add(timeLabel);
 	}
 	
 	public void updateRoundPanels(int actualStepNumber) {
@@ -97,6 +119,7 @@ public class SimulationPanel extends JPanel {
 				results.get(actualStepNumber).getNumberOfPeopleInFoodQueue());
 		roundPanelInTableQueue.setValue(
 				results.get(actualStepNumber).getNumberOfPeopleInTableQueue());
+		timeLabel.setText("Čas: " + results.get(actualStepNumber).getFormattedTime());
 	}
 	
 	@Override

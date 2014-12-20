@@ -84,7 +84,8 @@ public class MainWindow extends JFrame implements ActionListener {
 			ArrayList<Double> waitingTimes = simulation.getWaitingTimes();
 			
 			final ChartPanelContainer chartFrame = new ChartPanelContainer(
-				"", results,waitingTimes,simulation.getIncomingPersons());
+				"", results,waitingTimes,simulation.getIncomingPersons(),
+				"interval času", "počet lidí");
 			
 			//tabs.add("Graf", graphComponent);
 			tabs.add("Graf", chartFrame.getChartPanel());

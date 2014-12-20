@@ -23,8 +23,16 @@ public class ChartPanelContainer{
 	IncomingPersons incomingPersons;
 	final ChartPanel chartPanel;
 
-	public ChartPanelContainer(final String title, ArrayList<Result> results, ArrayList<Double> waitingTimes,
+	public ChartPanelContainer(final String title, ArrayList<Result> results,
+			ArrayList<Double> waitingTimes,
 			IncomingPersons incomingPersons) throws Exception {
+		this(title, results, waitingTimes, incomingPersons, "X", "Y"); 
+	}
+	
+	public ChartPanelContainer(final String title, ArrayList<Result> results,
+			ArrayList<Double> waitingTimes,
+			IncomingPersons incomingPersons,
+			String xAxisName, String yAxisName) throws Exception {
 		this.results = results;
 		this.waitingTimes = waitingTimes;
 		this.incomingPersons = incomingPersons;
@@ -34,8 +42,7 @@ public class ChartPanelContainer{
 		}
 
 		final XYDataset dataset = createDataset();
-		final JFreeChart chart = createChart(dataset);
-		chart.setTitle(title);
+		final JFreeChart chart = createChart(dataset, title, xAxisName, yAxisName);
 		
 		chartPanel = new ChartPanel(chart);
 		chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
@@ -47,7 +54,7 @@ public class ChartPanelContainer{
 	
 	private XYDataset createDataset() {
 		// incoming persons
-		XYSeries incomingPerson = new XYSeries("incomingPersons");
+		XYSeries incomingPerson = new XYSeries("příchozí osoby");
 		int i = 0;
 		for (Result result : results) {
 			incomingPerson.add((double) result.getTime(), (double) incomingPersons.getNumberOfPersons(i));
@@ -55,48 +62,49 @@ public class ChartPanelContainer{
 		}
 
 		// foodQueue
-		XYSeries foodQueue = new XYSeries("foodQueue");
+		XYSeries foodQueue = new XYSeries("fronta na jídlo");
 		for (Result result : results) {
 			foodQueue.add((double) result.getTime(), (double) result.getNumberOfPeopleInFoodQueue());
 		}
 
 		// tableQueue
-		XYSeries tableQueue = new XYSeries("tableQueue");
+		XYSeries tableQueue = new XYSeries("fronta na sednutí");
 		for (Result result : results) {
 			tableQueue.add((double) result.getTime(), (double) result.getNumberOfPeopleInTableQueue());
 		}
 
 		// eating
-		XYSeries eating = new XYSeries("eating");
+		XYSeries eating = new XYSeries("osob za stolem");
 		for (Result result : results) {
 			eating.add((double) result.getTime(), (double) result.getNumberOfPeopleEating());
 		}
 
 		// waitingTime
-		XYSeries waitingTime = new XYSeries("waitingTime");
+		XYSeries waitingTime = new XYSeries("doba čekání na výdej jídla");
 		i = 0;
 		for (Result result : results) {
 			waitingTime.add((double) result.getTime(), (double) waitingTimes.get(i));
 			i++;
 		}
-
+		
 		XYSeriesCollection dataset = new XYSeriesCollection();
 		dataset.addSeries(incomingPerson);
 		dataset.addSeries(foodQueue);
 		dataset.addSeries(tableQueue);
 		dataset.addSeries(eating);
 		dataset.addSeries(waitingTime);
-
+		
 		return dataset;
 	}
 
-	private JFreeChart createChart(final XYDataset dataset) {
+	private JFreeChart createChart(final XYDataset dataset,
+			String title, String xAxisName, String yAxisName) {
 
 		// create the chart...
-		final JFreeChart chart = ChartFactory.createXYLineChart("Line Chart Demo 6", // chart
+		final JFreeChart chart = ChartFactory.createXYLineChart(title, // chart
 																						// title
-				"X", // x axis label
-				"Y", // y axis label
+				xAxisName, // x axis label
+				yAxisName, // y axis label
 				dataset, // data
 				PlotOrientation.VERTICAL, true, // include legend
 				true, // tooltips
@@ -112,7 +120,7 @@ public class ChartPanelContainer{
 		// get a reference to the plot for further customisation...
 		final XYPlot plot = chart.getXYPlot();
 		plot.setBackgroundPaint(Color.white);
-
+		
 		plot.setDomainGridlinePaint(Color.lightGray);
 		plot.setRangeGridlinePaint(Color.lightGray);
 
