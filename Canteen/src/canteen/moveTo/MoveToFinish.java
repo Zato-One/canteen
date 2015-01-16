@@ -30,5 +30,4 @@ public class MoveToFinish {
                                        + parametersManager.getMoveToFinishGaussianStd() * rng.nextGaussian();
         return (int)Math.round(numberOfPersonsToMove);
     }
-
 }
